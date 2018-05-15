@@ -1,12 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
+import sys
 
-def ask_for_ids():
+def ask_for_ids(ini,end):
     final_ids = set()
-    for ra in range(0,24*60*60,100):
+    for ra in range(ini*60*60,end*60*60,1000):
         print("%d%%"%(100*(ra/(24.0*60*60))))
         for t in (-1,1):
-            for dec in range(6*60*60,-1,-100):
+            for dec in range(6*60*60,-1,-1000):
                 # RA segs
                 ra_segs = ra
                 ra1 = ra_segs//3600
@@ -23,7 +24,7 @@ def ask_for_ids():
                     'coo':'%d:%d:%d,%d:%d:%d'%(ra1,ra2,ra3,dec1,dec2,dec3),
                     'equinox':'2000',
                     'nmin':'1',
-                    'box':'3500',
+                    'box':'22000',
                     'submit':'Search',
                 }
                 print('COORDS: %d:%d:%d,%d:%d:%d'%(ra1,ra2,ra3,dec1,dec2,dec3))
@@ -37,9 +38,11 @@ def ask_for_ids():
     return final_ids
 
 if __name__=='__main__':
-    ids = ask_for_ids()
+    ini = int(sys.argv[1])
+    end = int(sys.argv[2])
+    ids = ask_for_ids(ini,end)
     ids = sorted(list(ids))
-    fil = open("ids.txt","w")
+    fil = open("ids_%d_%d.txt"%(ini,end),"w")
     for id in ids:
         fil.write(id+"\n")
     fil.close()
