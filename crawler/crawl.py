@@ -3,39 +3,41 @@ from bs4 import BeautifulSoup
 
 def ask_for_ids():
     final_ids = set()
-    for dec in range(-6*60*60,6*60*60,100):
-        print("%d%%"%(100*(dec/(12*60*60)+0.5)))
-        for ra in range(0,24*60*60,100):
-            # RA segs
-            ra_segs = ra
-            ra1 = ra_segs//3600
-            ra2 = (ra_segs//60)%60
-            ra3 = ra_segs%60
-            # DEC arcsegs
-            dec_asecs = dec*360//24
-            dec1 = dec_asecs//3600
-            dec2 = (dec_asecs//60)%60
-            dec3 = dec_asecs%60
-            # Parameters
-            pars = {
-                'source':'asas3',
-                'coo':'%d:%d:%d,%d:%d:%d'%(ra1,ra2,ra3,dec1,dec2,dec3),
-                'equinox':'2000',
-                'nmin':'1',
-                'box':'3500',
-                'submit':'Search',
-            }
-            r = requests.get('http://www.astrouw.edu.pl/cgi-asas/asas_cat_input',params=pars)
-            soup = BeautifulSoup(r.text,'html.parser')
-            print(soup.prettify())
-            routes = [x.get('href') for x in soup.pre.pre.find_all('a')]
-            ids = [x.split("/")[3].split(",")[0] for x in routes]
-            final_ids.update(ids)
+    for ra in range(0,24*60*60,100):
+        print("%d%%"%(100*(ra/(24.0*60*60))))
+        for t in (-1,1):
+            for dec in range(6*60*60,-1,-100):
+                # RA segs
+                ra_segs = ra
+                ra1 = ra_segs//3600
+                ra2 = (ra_segs//60)%60
+                ra3 = ra_segs%60
+                # DEC arcsegs
+                dec_asecs = dec*360//24
+                dec1 = t*(dec_asecs//3600)
+                dec2 = (dec_asecs//60)%60
+                dec3 = dec_asecs%60
+                # Parameters
+                pars = {
+                    'source':'asas3',
+                    'coo':'%d:%d:%d,%d:%d:%d'%(ra1,ra2,ra3,dec1,dec2,dec3),
+                    'equinox':'2000',
+                    'nmin':'1',
+                    'box':'3500',
+                    'submit':'Search',
+                }
+                print('COORDS: %d:%d:%d,%d:%d:%d'%(ra1,ra2,ra3,dec1,dec2,dec3))
+                r = requests.post('http://www.astrouw.edu.pl/cgi-asas/asas_cat_input',data=pars)#params=pars)
+                soup = BeautifulSoup(r.text,'html.parser')
+                #print(soup.prettify())
+                routes = [x.get('href') for x in soup.pre.pre.find_all('a')]
+                ids = [x.split("/")[3].split(",")[0] for x in routes]
+                final_ids.update(ids)
+                print("TOT: %d"%len(final_ids))
     return final_ids
 
 if __name__=='__main__':
-    #ids = ask_for_ids()
-    ids = ["hello","how","are","you"]
+    ids = ask_for_ids()
     ids = sorted(list(ids))
     fil = open("ids.txt","w")
     for id in ids:
