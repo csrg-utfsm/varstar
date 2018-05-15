@@ -4,10 +4,11 @@ import sys
 
 def ask_for_ids(ini,end):
     final_ids = set()
-    for ra in range(ini*60*60,end*60*60,1000):
+    sess = requests.Session()
+    for ra in range(ini*60*60,end*60*60,500):
         print("%d%%"%(100*(ra/(24.0*60*60))))
         for t in (-1,1):
-            for dec in range(6*60*60,-1,-1000):
+            for dec in range(6*60*60,-1,-500):
                 # RA segs
                 ra_segs = ra
                 ra1 = ra_segs//3600
@@ -24,11 +25,11 @@ def ask_for_ids(ini,end):
                     'coo':'%d:%d:%d,%d:%d:%d'%(ra1,ra2,ra3,dec1,dec2,dec3),
                     'equinox':'2000',
                     'nmin':'1',
-                    'box':'22000',
+                    'box':'11000',
                     'submit':'Search',
                 }
                 print('COORDS: %d:%d:%d,%d:%d:%d'%(ra1,ra2,ra3,dec1,dec2,dec3))
-                r = requests.post('http://www.astrouw.edu.pl/cgi-asas/asas_cat_input',data=pars)#params=pars)
+                r = sess.post('http://www.astrouw.edu.pl/cgi-asas/asas_cat_input',data=pars)#params=pars)
                 soup = BeautifulSoup(r.text,'html.parser')
                 #print(soup.prettify())
                 routes = [x.get('href') for x in soup.pre.pre.find_all('a')]
