@@ -29,7 +29,12 @@ def ask_for_ids(ini,end):
                     'submit':'Search',
                 }
                 print('COORDS: %02d:%02d:%02d,%02d:%02d:%02d'%(ra1,ra2,ra3,dec1,dec2,dec3))
-                r = sess.post('http://www.astrouw.edu.pl/cgi-asas/asas_cat_input',data=pars,timeout=None)#params=pars)
+		while 1:
+			try:
+		                r = sess.post('http://www.astrouw.edu.pl/cgi-asas/asas_cat_input',data=pars,timeout=None)#params=pars)
+			except:
+				continue
+			break
                 soup = BeautifulSoup(r.text,'html.parser')
                 #print(soup.prettify())
                 routes = [x.get('href') for x in soup.pre.pre.find_all('a')]
