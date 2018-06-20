@@ -1,9 +1,11 @@
 import requests
 import os
+import sys
 
-folder="id_data"
+folder = "id_data"
 #Select the name of the target file for data retrieval
-target_file = "example.txt"
+target_file = sys.argv[1]
+print("Reading from: %s"%(target_file))
 
 #Creates a file in a folder with the id as it's name and writes the data in it
 def get_id_data (digit):
