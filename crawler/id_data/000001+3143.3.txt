@@ -1,0 +1,30 @@
+# The All Sky Automated Survey Data
+# gp@astrouw.edu.pl
+#
+# ################   DESCRIPTION   ###############
+# The ASAS Photometric Catalog is maintained separately for each
+# observed field, so for some stars independent 'datasets' of
+# measurements are available. Their mean magnitudes may slightly differ.
+#
+# In each 'dataset' (starting with #dataset=0,1,2,...):
+# 'desig' is ASAS designation (they may differ (by 1) at the last
+# digit of the RA & DEC fields
+# 'cra', 'cdec' are initial Catalog coordinates
+# 'ndata' is number of points in each dataset
+# 'cmag_*',  'cmer_*' are reference magnitude & dispersion for each aperture
+# 'nskip_*' is number of data points skipped when calculating 'cmag' & 'cmer'
+# 'ra', 'dec', 'mag', 'mer' are coordinates, magnitude and dispersion
+# calculated directly from the data
+#
+# Each data row consists of the following fields:
+# -  HJD-2450000
+# -  magnitudes (one for each aperture)
+# -  frame errors describing average photometric quality of the frame (for each aperture)
+# -  frame number
+# -  grade :
+#    A - best data, no 29.999 (not measured) indication
+#    B - mean data, no 29.999 (not measured) indication
+#    C - A and B with 29.999 (not measured) indication
+#    D - worst data, probably useless
+#
+# ######### LIGHT CURVE BEGINS NEXT LINE ###########

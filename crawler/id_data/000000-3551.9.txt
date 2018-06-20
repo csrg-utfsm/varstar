@@ -1,0 +1,59 @@
+# The All Sky Automated Survey Data
+# gp@astrouw.edu.pl
+#
+# ################   DESCRIPTION   ###############
+# The ASAS Photometric Catalog is maintained separately for each
+# observed field, so for some stars independent 'datasets' of
+# measurements are available. Their mean magnitudes may slightly differ.
+#
+# In each 'dataset' (starting with #dataset=0,1,2,...):
+# 'desig' is ASAS designation (they may differ (by 1) at the last
+# digit of the RA & DEC fields
+# 'cra', 'cdec' are initial Catalog coordinates
+# 'ndata' is number of points in each dataset
+# 'cmag_*',  'cmer_*' are reference magnitude & dispersion for each aperture
+# 'nskip_*' is number of data points skipped when calculating 'cmag' & 'cmer'
+# 'ra', 'dec', 'mag', 'mer' are coordinates, magnitude and dispersion
+# calculated directly from the data
+#
+# Each data row consists of the following fields:
+# -  HJD-2450000
+# -  magnitudes (one for each aperture)
+# -  frame errors describing average photometric quality of the frame (for each aperture)
+# -  frame number
+# -  grade :
+#    A - best data, no 29.999 (not measured) indication
+#    B - mean data, no 29.999 (not measured) indication
+#    C - A and B with 29.999 (not measured) indication
+#    D - worst data, probably useless
+#
+# ######### LIGHT CURVE BEGINS NEXT LINE ###########
+#ndata= 5
+#dataset= 1 ; 1 F0036-32_159
+#desig= 235959-3551.8
+#cra=   23.999633  23:59:58.7
+#cdec= -35.862831 -35:51:46.2
+#class= 0
+#cmag_0= 12.663
+#cmer_0=  0.000
+#nskip_0= 0
+#cmag_1= 13.341
+#cmer_1=  0.000
+#nskip_1= 0
+#cmag_2= 13.707
+#cmer_2=  0.000
+#nskip_2= 0
+#cmag_3= 13.988
+#cmer_3=  0.000
+#nskip_3= 0
+#cmag_4= 14.094
+#cmer_4=  0.000
+#nskip_4= 0
+#ra=   23.999633  23:59:58.7
+#dec= -35.862831 -35:51:46.2
+#     HJD      MAG_0  MAG_1  MAG_2  MAG_3  MAG_4    MER_0 MER_1 MER_2 MER_3 MER_4 GRADE FRAME
+   2468.86253 29.999 29.999 29.999 29.999 29.999    0.039 0.042 0.032 0.033 0.033  C 11811
+   2473.83733 29.999 29.999 29.999 29.999 29.999    0.044 0.048 0.036 0.041 0.032  C 12770
+   2481.82714 29.999 29.999 29.999 29.999 29.999    0.043 0.045 0.035 0.039 0.035  C 13031
+   2486.78501 12.664 13.342 13.708 13.988 14.094    0.040 0.042 0.036 0.042 0.040  B 13387
+   2490.78165 29.999 29.999 29.999 29.999 29.999    0.038 0.039 0.032 0.039 0.031  C 14128
